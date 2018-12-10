@@ -19,17 +19,10 @@ int main(int argc, char *argv[]) {
   }
 
   // Initiliase problem dimensions from command line arguments
-  
-  //int nx = atoi(argv[1]);
-  //int ny = nx;
-  //int ny_temp = atoi(argv[2]);
-  //if (nx != ny_temp){
-  //  int ny = ny_temp;
-  //} 
-  //int niters = atoi(argv[3]);
-  int nx = atoi("8000");
-  int ny = atoi("8000");
-  int niters = atoi(argv[3]);  
+
+  int nx = atoi(argv[1]);
+  int ny = atoi(argv[2]);
+  int niters = atoi(argv[3]);
 
 
   // Allocate the image
