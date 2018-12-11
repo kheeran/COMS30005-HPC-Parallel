@@ -1,1 +1,0 @@
-/cm/local/apps/torque/4.2.4.1/spool/mom_priv/jobs/7806692.master.cm.cluster.SC: line 17: 97876 Segmentation fault      ./stencil 1024 4096 100

@@ -1,0 +1,4 @@
+/cm/local/apps/torque/4.2.4.1/spool/mom_priv/jobs/7817065.master.cm.cluster.SC: line 5: //: is a directory
+/cm/local/apps/torque/4.2.4.1/spool/mom_priv/jobs/7817065.master.cm.cluster.SC: line 8: syntax error near unexpected token `('
+/cm/local/apps/torque/4.2.4.1/spool/mom_priv/jobs/7817065.master.cm.cluster.SC: line 8: `void stencil(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);'
+Warning: Permanently added 'node32-020,10.131.0.164' (RSA) to the list of known hosts.

@@ -26,8 +26,8 @@ int main(int argc, char *argv[]) {
 
 
   // Allocate the image
-  float * restrict image = malloc(sizeof(float)*nx*ny);
-  float * restrict tmp_image = malloc(sizeof(float)*nx*ny);
+  float * restrict image = malloc(sizeof(float)*(nx+2)*(ny+2));
+  float * restrict tmp_image = malloc(sizeof(float)*(nx+2)*(ny+2));
 
   // Set the input image
   init_image(nx, ny, image, tmp_image);
@@ -40,7 +40,6 @@ int main(int argc, char *argv[]) {
   }
   double toc = wtime();
 
-
   // Output
   printf("------------------------------------\n");
   printf(" runtime: %lf s\n", toc-tic);
@@ -51,13 +50,13 @@ int main(int argc, char *argv[]) {
 }
 
 void stencil(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
-  for (int i = 0; i < ny; ++i) {
-    for (int j = 0; j < nx; ++j) {
-      tmp_image[j+i*ny] = image[j+i*ny] * 0.6f;
-      if (i > 0)    tmp_image[j+i*ny] += image[j  +(i-1)*ny] * 0.1f;
-      if (i < nx-1) tmp_image[j+i*ny] += image[j  +(i+1)*ny] * 0.1f;
-      if (j > 0)    tmp_image[j+i*ny] += image[j-1+i*ny] * 0.1f;
-      if (j < ny-1) tmp_image[j+i*ny] += image[j+1+i*ny] * 0.1f;
+  for (int i = 1; i < ny+1; ++i) {
+    for (int j = 1; j < nx+1; ++j) {
+      tmp_image[j+i*(nx+2)] = image[j+i*(nx+2)] * 0.6f;
+      tmp_image[j+i*(nx+2)] += image[j  +(i-1)*(nx+2)] * 0.1f;
+      tmp_image[j+i*(nx+2)] += image[j  +(i+1)*(nx+2)] * 0.1f;
+      tmp_image[j+i*(nx+2)] += image[j-1+i*(nx+2)] * 0.1f;
+      tmp_image[j+i*(nx+2)] += image[j+1+i*(nx+2)] * 0.1f;
     }
   }
 }
@@ -65,20 +64,20 @@ void stencil(const int nx, const int ny, float * restrict  image, float * restri
 // Create the input image
 void init_image(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
   // Zero everything
-  for (int j = 0; j < ny; ++j) {
-    for (int i = 0; i < nx; ++i) {
-      image[j+i*ny] = 0.0;
-      tmp_image[j+i*ny] = 0.0;
+  for (int j = 0; j < ny+2; ++j) {
+    for (int i = 0; i < nx+2; ++i) {
+      image[j+i*(ny+2)] = 0.0;
+      tmp_image[j+i*(ny+2)] = 0.0;
     }
   }
 
   // Checkerboard
   for (int j = 0; j < 8; ++j) {
     for (int i = 0; i < 8; ++i) {
-      for (int jj = j*ny/8; jj < (j+1)*ny/8; ++jj) {
-        for (int ii = i*nx/8; ii < (i+1)*nx/8; ++ii) {
+      for (int jj = j*(ny)/8; jj < (j+1)*(ny)/8; ++jj) {
+        for (int ii = i*(nx)/8; ii < (i+1)*(nx)/8; ++ii) {
           if ((i+j)%2)
-          image[jj+ii*ny] = 100.0;
+          image[(jj+1)+(ii+1)*(ny+2)] = 100.0;
         }
       }
     }
@@ -102,17 +101,17 @@ void output_image(const char * file_name, const int nx, const int ny, float * re
   // This is used to rescale the values
   // to a range of 0-255 for output
   float maximum = 0.0;
-  for (int j = 0; j < ny; ++j) {
-    for (int i = 0; i < nx; ++i) {
-      if (image[j+i*ny] > maximum)
-        maximum = image[j+i*ny];
+  for (int j = 1; j < ny+1; ++j) {
+    for (int i = 1; i < nx+1; ++i) {
+      if (image[j+i*(ny+2)] > maximum)
+        maximum = image[j+i*(ny+2)];
     }
   }
 
   // Output image, converting to numbers 0-255
-  for (int j = 0; j < ny; ++j) {
-    for (int i = 0; i < nx; ++i) {
-      fputc((char)(255.0*image[j+i*ny]/maximum), fp);
+  for (int j = 1; j < (ny+1); ++j) {
+    for (int i = 1; i < (nx+1); ++i) {
+      fputc((char)(255.0*image[j+i*(ny+2)]/maximum), fp);
     }
   }
 
