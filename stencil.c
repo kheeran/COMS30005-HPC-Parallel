@@ -4,10 +4,13 @@
 #include <math.h>
 #include <mpi.h>
 
+#define MASTER 0
+
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 
 void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
+void stencile(const int rank, const int partX, const int partXe, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
 void init_image(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
 void output_image(const char * file_name, const int nx, const int ny, float * restrict image);
 double wtime(void);
@@ -22,9 +25,12 @@ int main(int argc, char *argv[]) {
 
   int rank;               /* 'rank' of process among it's cohort */
   int size;               /* size of cohort, i.e. num processes started */
-  int flag;               /* for checking whether MPI_Init() has been called */
+  int flag;
+  int partX;              // size of the partitions
+  int partXe;             // size of the last partition
+  MPI_Status status;
+  int tag = 0;
   enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */
-
 
   // Initiliase problem dimensions from command line arguments
 
@@ -35,15 +41,6 @@ int main(int argc, char *argv[]) {
   // Allocate the image
   float * image = malloc(sizeof(float)*(nx+2)*(ny+2));
   float * tmp_image = malloc(sizeof(float)*(nx+2)*(ny+2));
-
-  // float * restrict image_send = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
-  // float * restrict tmp_image_send = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
-  //
-  // float * restrict image_receive = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
-  // float * restrict tmp_image_receive = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
-  //
-  // float * restrict halo_send = malloc(sizeof(float)*(nx+2));
-  // float * restrict halo_receive = malloc(sizeof(float)*(nx+2));
 
   // Set the input image
   init_image(nx, ny, image, tmp_image);
@@ -60,46 +57,65 @@ int main(int argc, char *argv[]) {
 
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
-  int partX = ceil(nx/size);
+  // Determining the size of each partition
+  partX = ceil(nx/size);
+  if (nx%partX != 0) {
+    partXe = nx%partX;
+  } else {
+    partXe = partX;
+  }
+
 
   // Call the stencil kernel
   double tic = wtime();
 
-  if (rank == 0) {
+  if (rank == MASTER) {
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
       stencil(rank, partX, nx, ny, tmp_image, image);
+    }
+    // Receive from all ranks
+    for (int i = 1; i<size-1; ++i){
+      MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
+    }
+    MPI_Recv(&image[(size-1)*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
+
+  } else if (rank < size-1){
+    for (int t = 0; t < niters; ++t) {
+      stencil(rank, partX, nx, ny, image, tmp_image);
+      stencil(rank, partX, nx, ny, tmp_image, image);
+    }
+    // Sending the completed section
+    MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
+
+  } else if (rank == size-1){
+
+    for (int t = 0; t < niters; ++t) {
+      stencile(rank, partX, partXe, nx, ny, image, tmp_image);
+      stencile(rank, partX, partXe, nx, ny, tmp_image, image);
 
     }
-  } else if (rank == size-1){
-    if (nx%partX != 0) {
-      partX = nx%partX;
-    }
-    for (int t = 0; t < niters; ++t) {
-      stencil(rank, partX, nx, ny, image, tmp_image);
-      stencil(rank, partX, nx, ny, tmp_image, image);
-    }
+    // Sending the completed section
+    MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
+
   } else {
-    for (int t = 0; t < niters; ++t) {
-      stencil(rank, partX, nx, ny, image, tmp_image);
-      stencil(rank, partX, nx, ny, tmp_image, image);
-    }
+    printf("Error on processor %d: this rank has not been coded for\n", rank );
+    return EXIT_FAILURE;
   }
 
   double toc = wtime();
 
-  printf("Processing on rank %d\n", rank );
+  printf("Timing on rank %d:\n", rank );
   // Output
   printf("------------------------------------\n");
   printf(" runtime: %lf s\n", toc-tic);
   printf("------------------------------------\n");
 
-  if (rank == 0) {
-
+  if (rank == MASTER) {
     output_image(OUTPUT_FILE, nx, ny, image);
-    free(image);
-
   }
+  free(image);
+  free(tmp_image);
 
   MPI_Finalize();
 
@@ -109,6 +125,19 @@ int main(int argc, char *argv[]) {
 void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
 
   for (int i = (rank*partX) + 1; i < ((rank+1)*partX) + 1; ++i) {
+    for (int j = 1; j < ny + 1; ++j) {
+      tmp_image[j+i*(ny+2)] = image[j+i*(ny+2)] * 0.6f;
+      tmp_image[j+i*(ny+2)] += image[j  +(i-1)*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j  +(i+1)*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j-1+i*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j+1+i*(ny+2)] * 0.1f;
+    }
+  }
+}
+
+void stencile(const int rank, const int partX, const int partXe, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
+
+  for (int i = (rank*partX) + 1; i < (rank*partX + partXe) + 1; ++i) {
     for (int j = 1; j < ny + 1; ++j) {
       tmp_image[j+i*(ny+2)] = image[j+i*(ny+2)] * 0.6f;
       tmp_image[j+i*(ny+2)] += image[j  +(i-1)*(ny+2)] * 0.1f;

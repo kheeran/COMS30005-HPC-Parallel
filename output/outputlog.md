@@ -553,3 +553,486 @@ Processing on rank 2
 
 
 ------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-032
+Time is Wed Dec 12 16:28:35 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7824897.master.cm.cluster
+This jobs runs on the following machines:
+node31-032
+Processing on rank 1
+Processing on rank 7
+------------------------------------
+ runtime: 0.006904 s
+------------------------------------
+Processing on rank 8
+------------------------------------
+ runtime: 0.006909 s
+------------------------------------
+Processing on rank 2
+------------------------------------
+ runtime: 0.006917 s
+------------------------------------
+Processing on rank 5
+------------------------------------
+ runtime: 0.006920 s
+------------------------------------
+Processing on rank 6
+------------------------------------
+ runtime: 0.006928 s
+------------------------------------
+Processing on rank 9
+------------------------------------
+ runtime: 0.006930 s
+------------------------------------
+Processing on rank 10
+------------------------------------
+ runtime: 0.006940 s
+------------------------------------
+Processing on rank 15
+------------------------------------
+ runtime: 0.006943 s
+------------------------------------
+Processing on rank 11
+------------------------------------
+ runtime: 0.006967 s
+------------------------------------
+Processing on rank 12
+------------------------------------
+ runtime: 0.006946 s
+------------------------------------
+------------------------------------
+ runtime: 0.006907 s
+------------------------------------Processing on rank 4
+------------------------------------
+ runtime: 0.007114 s
+------------------------------------
+Processing on rank 14
+------------------------------------
+Processing on rank 0
+------------------------------------
+Processing on rank 13
+------------------------------------
+ runtime: 0.007152 s
+------------------------------------
+ runtime: 0.007148 s
+------------------------------------
+ runtime: 0.007122 s
+------------------------------------
+
+Processing on rank 3
+------------------------------------
+ runtime: 0.007267 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-032
+Time is Wed Dec 12 16:28:35 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7824897.master.cm.cluster
+This jobs runs on the following machines:
+node31-032
+Processing on rank 1
+Processing on rank 7
+------------------------------------
+ runtime: 0.006904 s
+------------------------------------
+Processing on rank 8
+------------------------------------
+ runtime: 0.006909 s
+------------------------------------
+Processing on rank 2
+------------------------------------
+ runtime: 0.006917 s
+------------------------------------
+Processing on rank 5
+------------------------------------
+ runtime: 0.006920 s
+------------------------------------
+Processing on rank 6
+------------------------------------
+ runtime: 0.006928 s
+------------------------------------
+Processing on rank 9
+------------------------------------
+ runtime: 0.006930 s
+------------------------------------
+Processing on rank 10
+------------------------------------
+ runtime: 0.006940 s
+------------------------------------
+Processing on rank 15
+------------------------------------
+ runtime: 0.006943 s
+------------------------------------
+Processing on rank 11
+------------------------------------
+ runtime: 0.006967 s
+------------------------------------
+Processing on rank 12
+------------------------------------
+ runtime: 0.006946 s
+------------------------------------
+------------------------------------
+ runtime: 0.006907 s
+------------------------------------Processing on rank 4
+------------------------------------
+ runtime: 0.007114 s
+------------------------------------
+Processing on rank 14
+------------------------------------
+Processing on rank 0
+------------------------------------
+Processing on rank 13
+------------------------------------
+ runtime: 0.007152 s
+------------------------------------
+ runtime: 0.007148 s
+------------------------------------
+ runtime: 0.007122 s
+------------------------------------
+
+Processing on rank 3
+------------------------------------
+ runtime: 0.007267 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-030
+Time is Wed Dec 12 18:23:19 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7825958.master.cm.cluster
+This jobs runs on the following machines:
+node31-030
+Processing on rank 1
+Processing on rank 2
+------------------------------------
+------------------------------------
+ runtime: 0.007070 s
+------------------------------------
+ runtime: 0.007134 s
+Processing on rank 3
+------------------------------------
+ runtime: 0.007177 s
+------------------------------------
+------------------------------------Processing on rank 4
+------------------------------------
+ runtime: 0.007207 s
+------------------------------------
+
+Processing on rank 5
+------------------------------------
+ runtime: 0.007232 s
+------------------------------------
+Processing on rank 6
+------------------------------------
+ runtime: 0.007294 s
+------------------------------------
+Processing on rank 7
+------------------------------------Processing on rank 8
+------------------------------------
+ runtime: 0.007394 s
+------------------------------------
+
+Processing on rank 9
+------------------------------------
+Processing on rank 10
+------------------------------------
+ runtime: 0.007497 s
+------------------------------------
+ runtime: 0.007324 s
+------------------------------------
+ runtime: 0.007450 s
+Processing on rank 11
+------------------------------------
+ runtime: 0.007535 s
+------------------------------------
+Processing on rank 12
+------------------------------------
+ runtime: 0.007587 s
+------------------------------------
+------------------------------------Processing on rank 13
+------------------------------------
+ runtime: 0.007650 s
+------------------------------------
+
+Processing on rank 14
+------------------------------------
+ runtime: 0.007704 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-032
+Time is Wed Dec 12 18:29:31 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7826014.master.cm.cluster
+This jobs runs on the following machines:
+node31-032
+Receiving image from processor 1
+Processing on rank 1
+------------------------------------
+ runtime: 0.008570 s
+------------------------------------
+Receiving image from processor 2
+Processing on rank 2
+------------------------------------
+ runtime: 0.008713 s
+------------------------------------
+Receiving image from processor 3
+Processing on rank 3
+------------------------------------
+ runtime: 0.008830 s
+------------------------------------
+Receiving image from processor 4
+Processing on rank 4
+------------------------------------
+ runtime: 0.008920 s
+------------------------------------
+Receiving image from processor 5
+Processing on rank 5
+------------------------------------
+ runtime: 0.009018 s
+------------------------------------
+Receiving image from processor 6
+Processing on rank 6
+------------------------------------
+ runtime: 0.009102 s
+------------------------------------
+Receiving image from processor 7
+Processing on rank 7
+------------------------------------
+ runtime: 0.009191 s
+------------------------------------
+Receiving image from processor 8
+Processing on rank 8
+------------------------------------
+ runtime: 0.009320 s
+------------------------------------
+Receiving image from processor 9
+Processing on rank 9
+------------------------------------
+ runtime: 0.009455 s
+------------------------------------
+Receiving image from processor 10
+Processing on rank 10
+------------------------------------
+ runtime: 0.009596 s
+------------------------------------
+Receiving image from processor 11
+Processing on rank 11
+------------------------------------
+ runtime: 0.009708 s
+------------------------------------
+Receiving image from processor 12
+Processing on rank 12
+------------------------------------
+ runtime: 0.009842 s
+------------------------------------
+Receiving image from processor 13
+Processing on rank 13
+------------------------------------
+ runtime: 0.009952 s
+------------------------------------
+Receiving image from processor 14
+Processing on rank 14
+------------------------------------
+ runtime: 0.010068 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-029
+Time is Wed Dec 12 18:34:03 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7826050.master.cm.cluster
+This jobs runs on the following machines:
+node31-029
+Receiving image from processor 1
+Processing on rank 1
+Receiving image from processor 2
+Processing on rank 2
+------------------------------------
+ runtime: 0.008462 s
+------------------------------------
+Receiving image from processor 3
+Processing on rank 3
+------------------------------------
+ runtime: 0.008511 s
+------------------------------------
+Receiving image from processor 4
+------------------------------------
+ runtime: 0.008402 s
+------------------------------------
+Processing on rank 4
+------------------------------------
+ runtime: 0.008547 s
+------------------------------------
+Receiving image from processor 5
+Processing on rank 5
+------------------------------------
+ runtime: 0.008647 s
+------------------------------------
+Receiving image from processor 6
+Processing on rank 6
+------------------------------------
+ runtime: 0.008759 s
+------------------------------------
+Receiving image from processor 7
+Processing on rank 7
+------------------------------------
+ runtime: 0.008851 s
+------------------------------------
+Receiving image from processor 8
+Processing on rank 8
+------------------------------------
+ runtime: 0.008980 s
+------------------------------------
+Receiving image from processor 9
+Processing on rank 9
+------------------------------------
+ runtime: 0.009120 s
+------------------------------------
+Receiving image from processor 10
+Processing on rank 10
+------------------------------------
+ runtime: 0.009222 s
+------------------------------------
+Receiving image from processor 11
+Processing on rank 11
+------------------------------------
+ runtime: 0.009330 s
+------------------------------------
+Receiving image from processor 12
+Processing on rank 12
+------------------------------------
+ runtime: 0.009427 s
+------------------------------------
+Receiving image from processor 13
+Processing on rank 13
+------------------------------------
+ runtime: 0.009556 s
+------------------------------------
+Receiving image from processor 14
+Processing on rank 14
+------------------------------------
+ runtime: 0.009658 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-037
+Time is Wed Dec 12 18:37:24 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7826077.master.cm.cluster
+This jobs runs on the following machines:
+node31-037
+Receiving image from processor 1
+Timing on rank 1:
+------------------------------------
+ runtime: 0.008499 s
+------------------------------------
+Receiving image from processor 2
+Timing on rank 2:
+------------------------------------
+ runtime: 0.008837 s
+------------------------------------
+Receiving image from processor 3
+Timing on rank 3:
+------------------------------------
+ runtime: 0.008952 s
+------------------------------------
+Receiving image from processor 4
+Timing on rank 4:
+------------------------------------
+ runtime: 0.009044 s
+------------------------------------
+Receiving image from processor 5
+Timing on rank 5:
+------------------------------------
+ runtime: 0.009153 s
+------------------------------------
+Receiving image from processor 6
+Timing on rank 6:
+------------------------------------
+ runtime: 0.009259 s
+------------------------------------
+Receiving image from processor 7
+Timing on rank 7:
+------------------------------------
+ runtime: 0.009357 s
+------------------------------------
+Receiving image from processor 8
+Timing on rank 8:
+------------------------------------
+ runtime: 0.009478 s
+------------------------------------
+Receiving image from processor 9
+Timing on rank 9:
+------------------------------------
+ runtime: 0.009611 s
+------------------------------------
+Receiving image from processor 10
+Timing on rank 10:
+------------------------------------
+ runtime: 0.009722 s
+------------------------------------
+Receiving image from processor 11
+Timing on rank 11:
+------------------------------------
+ runtime: 0.009831 s
+------------------------------------
+Receiving image from processor 12
+Timing on rank 12:
+------------------------------------
+ runtime: 0.009940 s
+------------------------------------
+Receiving image from processor 13
+Timing on rank 13:
+------------------------------------
+ runtime: 0.010060 s
+------------------------------------
+Receiving image from processor 14
+Timing on rank 14:
+------------------------------------
+ runtime: 0.010180 s
+------------------------------------
+Receiving image from processor 15
+Sending image from processor 15
+Timing on rank 15:
+------------------------------------
+ runtime: 0.010304 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.010316 s
+------------------------------------
+outputting file
+
+
+------------------------------------------------------

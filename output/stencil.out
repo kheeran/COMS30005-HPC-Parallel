@@ -1,70 +1,87 @@
-Running on host node31-033
-Time is Wed Dec 12 14:47:27 GMT 2018
+Running on host node31-037
+Time is Wed Dec 12 18:37:24 GMT 2018
 Directory is /panfs/panasas01/cosc/kn16063/MPI
-PBS job ID is 7823488.master.cm.cluster
+PBS job ID is 7826077.master.cm.cluster
 This jobs runs on the following machines:
-node31-033
-Processing on rank 8
-Processing on rank 7
+node31-037
+Receiving image from processor 1
+Timing on rank 1:
 ------------------------------------
-Processing on rank 9
+ runtime: 0.008499 s
 ------------------------------------
- runtime: 0.016353 s
+Receiving image from processor 2
+Timing on rank 2:
 ------------------------------------
- runtime: 0.016357 s
+ runtime: 0.008837 s
 ------------------------------------
-Processing on rank 10
+Receiving image from processor 3
+Timing on rank 3:
 ------------------------------------
- runtime: 0.016364 s
+ runtime: 0.008952 s
 ------------------------------------
-Processing on rank 11
+Receiving image from processor 4
+Timing on rank 4:
 ------------------------------------
- runtime: 0.016377 s
+ runtime: 0.009044 s
 ------------------------------------
-Processing on rank 13
+Receiving image from processor 5
+Timing on rank 5:
 ------------------------------------
- runtime: 0.016374 s
+ runtime: 0.009153 s
 ------------------------------------
-Processing on rank 3
+Receiving image from processor 6
+Timing on rank 6:
 ------------------------------------
-Processing on rank 12
+ runtime: 0.009259 s
 ------------------------------------
- runtime: 0.016384 s
+Receiving image from processor 7
+Timing on rank 7:
 ------------------------------------
-Processing on rank 15
+ runtime: 0.009357 s
 ------------------------------------
- runtime: 0.016394 s
+Receiving image from processor 8
+Timing on rank 8:
 ------------------------------------
- runtime: 0.016400 s
+ runtime: 0.009478 s
 ------------------------------------
-Processing on rank 4
+Receiving image from processor 9
+Timing on rank 9:
 ------------------------------------
- runtime: 0.016409 s
+ runtime: 0.009611 s
 ------------------------------------
-Processing on rank 5
+Receiving image from processor 10
+Timing on rank 10:
 ------------------------------------
- runtime: 0.016406 s
+ runtime: 0.009722 s
 ------------------------------------
-Processing on rank 6
+Receiving image from processor 11
+Timing on rank 11:
 ------------------------------------
- runtime: 0.016413 s
+ runtime: 0.009831 s
 ------------------------------------
+Receiving image from processor 12
+Timing on rank 12:
 ------------------------------------
-Processing on rank 1
- runtime: 0.016314 s
+ runtime: 0.009940 s
 ------------------------------------
-Processing on rank 14
+Receiving image from processor 13
+Timing on rank 13:
 ------------------------------------
- runtime: 0.016585 s
+ runtime: 0.010060 s
 ------------------------------------
-Processing on rank 0
+Receiving image from processor 14
+Timing on rank 14:
 ------------------------------------
- runtime: 0.016564 s
+ runtime: 0.010180 s
 ------------------------------------
-Processing on rank 2
+Receiving image from processor 15
+Sending image from processor 15
+Timing on rank 15:
 ------------------------------------
- runtime: 0.016628 s
+ runtime: 0.010304 s
 ------------------------------------
+Timing on rank 0:
 ------------------------------------
- runtime: 0.016556 s
+ runtime: 0.010316 s
 ------------------------------------
+outputting file
