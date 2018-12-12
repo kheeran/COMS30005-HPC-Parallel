@@ -2,5 +2,5 @@
 
 cd output
 source log.sh
-vim outputlog.md
+cat outputlog.md
 cd ..

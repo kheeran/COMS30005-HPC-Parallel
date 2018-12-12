@@ -58,13 +58,20 @@ int main(int argc, char *argv[]) {
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
   // Determining the size of each partition
-  partX = ceil(nx/size);
+  double nnx = nx;
+  double ssize = size;
+  partX = ceil(nnx/ssize);
+  printf ("size = %d\n", size);
+  printf("PartX = %d\n", partX);
+  int test = nx % partX;
+  printf("nx = %d\n", nx);
+  printf("nx mod partX = %d\n", test);
   if (nx%partX != 0) {
     partXe = nx%partX;
   } else {
     partXe = partX;
   }
-
+  printf("partXe = %d\n",partXe);
 
   // Call the stencil kernel
   double tic = wtime();
