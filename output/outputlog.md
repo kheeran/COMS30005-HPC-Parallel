@@ -2,24 +2,15 @@
 
 
 ## ICC fast
-Node: node31-031
-Time: Tue Dec 11 15:26:10 GMT 2018
-Job ID: 7816524.master.cm.cluster
+Running on host node46-017
+Time is Wed Dec 12 11:37:13 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7822057.master.cm.cluster
+This jobs runs on the following machines:
+node46-017
+Processing on rank 0
 ------------------------------------
- runtime: 0.090511 s
-------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-029
-Time: Tue Dec 11 15:37:24 GMT 2018
-Job ID: 7816887.master.cm.cluster
-------------------------------------
- runtime: 0.089215 s
+ runtime: 0.152754 s
 ------------------------------------
 
 
@@ -28,37 +19,27 @@ Job ID: 7816887.master.cm.cluster
 
 
 ## ICC fast
-Node: node31-030
-Time: Tue Dec 11 15:40:45 GMT 2018
-Job ID: 7816903.master.cm.cluster
+Running on host node46-017
+Time is Wed Dec 12 11:42:19 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7822101.master.cm.cluster
+This jobs runs on the following machines:
+node46-017
+Processing on rank 0
+Processing on rank 1
+Processing on rank 2
+Processing on rank 3
 ------------------------------------
- runtime: 0.328156 s
+ runtime: 0.235084 s
 ------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-032
-Time: Tue Dec 11 15:47:57 GMT 2018
-Job ID: 7816942.master.cm.cluster
 ------------------------------------
- runtime: 0.329064 s
+ runtime: 0.322921 s
 ------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-029
-Time: Tue Dec 11 15:58:36 GMT 2018
-Job ID: 7817010.master.cm.cluster
 ------------------------------------
- runtime: 0.327463 s
+ runtime: 0.420152 s
+------------------------------------
+------------------------------------
+ runtime: 0.424100 s
 ------------------------------------
 
 
@@ -67,89 +48,27 @@ Job ID: 7817010.master.cm.cluster
 
 
 ## ICC fast
-Node: node31-029
-Time: Tue Dec 11 15:58:36 GMT 2018
-Job ID: 7817010.master.cm.cluster
+Running on host node46-017
+Time is Wed Dec 12 11:45:05 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7822148.master.cm.cluster
+This jobs runs on the following machines:
+node46-017
+Processing on rank 0
 ------------------------------------
- runtime: 0.327463 s
+ runtime: 0.170894 s
 ------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-032
-Time: Tue Dec 11 16:09:11 GMT 2018
-Job ID: 7817079.master.cm.cluster
+Processing on rank 1
 ------------------------------------
- runtime: 0.651973 s
+ runtime: 0.221500 s
 ------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-035
-Time: Tue Dec 11 16:56:07 GMT 2018
-Job ID: 7817408.master.cm.cluster
+Processing on rank 3
 ------------------------------------
- runtime: 0.115916 s
+ runtime: 0.319883 s
 ------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-031
-Time: Tue Dec 11 17:00:32 GMT 2018
-Job ID: 7817440.master.cm.cluster
+Processing on rank 2
 ------------------------------------
- runtime: 8.818878 s
-------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-031
-Time: Tue Dec 11 17:52:20 GMT 2018
-Job ID: 7817799.master.cm.cluster
-------------------------------------
- runtime: 8.811806 s
-------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-029
-Time: Tue Dec 11 19:24:42 GMT 2018
-Job ID: 7818979.master.cm.cluster
-------------------------------------
- runtime: 0.116045 s
-------------------------------------
-
-
-------------------------------------------------------
-#LOG
-
-
-## ICC fast
-Node: node31-029
-Time: Tue Dec 11 19:24:42 GMT 2018
-Job ID: 7818979.master.cm.cluster
-------------------------------------
- runtime: 0.116045 s
+ runtime: 0.331590 s
 ------------------------------------
 
 

@@ -1,6 +1,22 @@
-Node: node31-031
-Time: Tue Dec 11 20:10:42 GMT 2018
-Job ID: 7819139.master.cm.cluster
+Running on host node46-017
+Time is Wed Dec 12 11:45:05 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7822148.master.cm.cluster
+This jobs runs on the following machines:
+node46-017
+Processing on rank 0
 ------------------------------------
- runtime: 0.089048 s
+ runtime: 0.170894 s
+------------------------------------
+Processing on rank 1
+------------------------------------
+ runtime: 0.221500 s
+------------------------------------
+Processing on rank 3
+------------------------------------
+ runtime: 0.319883 s
+------------------------------------
+Processing on rank 2
+------------------------------------
+ runtime: 0.331590 s
 ------------------------------------

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "mpi.h"
+#include <mpi.h>
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
@@ -22,9 +22,32 @@ int main(int argc, char *argv[]) {
   int rank;               /* 'rank' of process among it's cohort */
   int size;               /* size of cohort, i.e. num processes started */
   int flag;               /* for checking whether MPI_Init() has been called */
-  int strlen;             /* length of a character array */
   enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */
-  char hostname[MPI_MAX_PROCESSOR_NAME];  /* character array to hold hostname running process */
+
+
+  // Initiliase problem dimensions from command line arguments
+
+  int nx = atoi(argv[1]);
+  int ny = atoi(argv[2]);
+  int niters = atoi(argv[3]);
+
+  double partY = ceil(ny/rank)
+
+  // Allocate the image
+  float * restrict image = malloc(sizeof(float)*(nx+2)*(ny+2));
+  float * restrict tmp_image = malloc(sizeof(float)*(nx+2)*(ny+2));
+
+  // float * restrict image_send = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
+  // float * restrict tmp_image_send = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
+  //
+  // float * restrict image_receive = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
+  // float * restrict tmp_image_receive = malloc(sizeof(float)*(nx+2)*(ny/partY+2));
+  //
+  // float * restrict halo_send = malloc(sizeof(float)*(nx+2));
+  // float * restrict halo_receive = malloc(sizeof(float)*(nx+2));
+
+  // Set the input image
+  init_image(nx, ny, image, tmp_image);
 
   /* initialise our MPI environment */
   MPI_Init( &argc, &argv );
@@ -34,34 +57,34 @@ int main(int argc, char *argv[]) {
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
-  MPI_Get_processor_name(hostname,&strlen);
-
   MPI_Comm_size( MPI_COMM_WORLD, &size );
 
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
-  // Initiliase problem dimensions from command line arguments
-
-  int nx = atoi(argv[1]);
-  int ny = atoi(argv[2]);
-  int niters = atoi(argv[3]);
-
-
-
-  // Allocate the image
-  float * restrict image = malloc(sizeof(float)*(nx+2)*(ny+2));
-  float * restrict tmp_image = malloc(sizeof(float)*(nx+2)*(ny+2));
-
-  // Set the input image
-  init_image(nx, ny, image, tmp_image);
 
   // Call the stencil kernel
   double tic = wtime();
-  for (int t = 0; t < niters; ++t) {
-    stencil(nx, ny, image, tmp_image);
-    stencil(nx, ny, tmp_image, image);
+
+  if (rank == 0) {
+    for (int t = 0; t < niters; ++t) {
+
+      stencil(nx, ny, image, tmp_image);
+      stencil(nx, ny, tmp_image, image);
+    }
+  } else if (rank == size-1){
+    for (int t = 0; t < niters; ++t) {
+      stencil(nx, ny, image, tmp_image);
+      stencil(nx, ny, tmp_image, image);
+    }
+  } else {
+    for (int t = 0; t < niters; ++t) {
+      stencil(nx, ny, image, tmp_image);
+      stencil(nx, ny, tmp_image, image);
+    }
   }
+
   double toc = wtime();
 
+  printf("Processing on rank %d\n", rank );
   // Output
   printf("------------------------------------\n");
   printf(" runtime: %lf s\n", toc-tic);
@@ -72,10 +95,11 @@ int main(int argc, char *argv[]) {
 
   MPI_Finalize();
 
-  return EXIT_SUCCESS
+  return EXIT_SUCCESS;
 }
 
 void stencil(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
+
   for (int i = 1; i < ny+1; ++i) {
     for (int j = 1; j < nx+1; ++j) {
       tmp_image[j+i*(nx+2)] = image[j+i*(nx+2)] * 0.6f;
