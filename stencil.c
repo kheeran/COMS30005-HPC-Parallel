@@ -75,10 +75,14 @@ int main(int argc, char *argv[]) {
       stencil(rank, partX, nx, ny, tmp_image, image);
     }
     // Receive from all ranks
-    for (int i = 1; i<size-1; ++i){
-      MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
+    if (size>2){
+      for (int i = 1; i<size-1; ++i){
+        MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
+      }
     }
-    MPI_Recv(&image[(size-1)*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
+    if (size>1){
+      MPI_Recv(&image[(size-1)*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
+    }
 
   } else if (rank < size-1){
     for (int t = 0; t < niters; ++t) {
