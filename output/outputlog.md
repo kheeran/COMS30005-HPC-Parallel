@@ -316,3 +316,210 @@ Timing on rank 4:
 
 
 ------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-030
+Time is Thu Dec 13 10:47:04 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7831564.master.cm.cluster
+This jobs runs on the following machines:
+node31-030
+Timing on rank 1:
+------------------------------------
+ runtime: 0.024188 s
+------------------------------------
+Timing on rank 2:
+------------------------------------
+ runtime: 0.024502 s
+------------------------------------
+Timing on rank 3:
+------------------------------------
+ runtime: 0.024667 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.024820 s
+------------------------------------
+Timing on rank 4:
+------------------------------------
+ runtime: 0.024830 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-030
+Time is Thu Dec 13 10:51:30 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7831653.master.cm.cluster
+This jobs runs on the following machines:
+node31-030
+Timing on rank 0:
+------------------------------------
+ runtime: 0.058987 s
+------------------------------------
+Timing on rank 1:
+------------------------------------
+ runtime: 0.059005 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-031
+Time is Thu Dec 13 10:57:04 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7831756.master.cm.cluster
+This jobs runs on the following machines:
+node31-031
+Timing on rank 1:
+------------------------------------
+ runtime: 0.058104 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.058794 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-030
+Time is Thu Dec 13 12:35:12 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7833414.master.cm.cluster
+This jobs runs on the following machines:
+node31-030
+Timing on rank 1:
+------------------------------------
+ runtime: 0.023758 s
+------------------------------------
+Timing on rank 4:
+------------------------------------
+ runtime: 0.023832 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.023911 s
+------------------------------------
+Timing on rank 2:
+------------------------------------
+ runtime: 0.023988 s
+------------------------------------
+Timing on rank 3:
+------------------------------------
+ runtime: 0.024028 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-036
+Time is Thu Dec 13 12:47:11 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7833553.master.cm.cluster
+This jobs runs on the following machines:
+node31-036
+Timing on rank 2:
+------------------------------------
+ runtime: 0.024075 s
+------------------------------------
+Timing on rank 3:
+------------------------------------
+ runtime: 0.024155 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.024552 s
+------------------------------------
+Timing on rank 4:
+------------------------------------
+ runtime: 0.024568 s
+------------------------------------
+Timing on rank 1:
+------------------------------------
+ runtime: 0.024664 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-032
+Time is Thu Dec 13 13:09:57 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7833928.master.cm.cluster
+This jobs runs on the following machines:
+node31-032
+Timing on rank 1:
+------------------------------------
+ runtime: 0.023388 s
+------------------------------------
+Timing on rank 2:
+------------------------------------
+ runtime: 0.023911 s
+------------------------------------
+Timing on rank 3:
+------------------------------------
+ runtime: 0.023978 s
+------------------------------------
+Timing on rank 4:
+------------------------------------
+ runtime: 0.024065 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.024311 s
+------------------------------------
+
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-031
+Time is Thu Dec 13 13:54:43 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7834281.master.cm.cluster
+This jobs runs on the following machines:
+node31-031
+Timing on rank 1:
+------------------------------------
+ runtime: 0.025766 s
+------------------------------------
+Timing on rank 2:
+------------------------------------
+ runtime: 0.026087 s
+------------------------------------
+Timing on rank 3:
+------------------------------------
+ runtime: 0.026242 s
+------------------------------------
+Timing on rank 0:
+------------------------------------
+ runtime: 0.026372 s
+------------------------------------
+Timing on rank 4:
+------------------------------------
+ runtime: 0.026392 s
+------------------------------------
+
+
+------------------------------------------------------

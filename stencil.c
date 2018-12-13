@@ -61,17 +61,11 @@ int main(int argc, char *argv[]) {
   double nnx = nx;
   double ssize = size;
   partX = ceil(nnx/ssize);
-  printf ("size = %d\n", size);
-  printf("PartX = %d\n", partX);
-  int test = nx % partX;
-  printf("nx = %d\n", nx);
-  printf("nx mod partX = %d\n", test);
   if (nx%partX != 0) {
     partXe = nx%partX;
   } else {
     partXe = partX;
   }
-  printf("partXe = %d\n",partXe);
 
   // Call the stencil kernel
   double tic = wtime();
@@ -80,6 +74,8 @@ int main(int argc, char *argv[]) {
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
       stencil(rank, partX, nx, ny, tmp_image, image);
+      // Send halo to next rank
+      MPI_Send(&image[(rank+1)*partX], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
     }
     // Receive from all ranks
     if (size>2){
@@ -95,6 +91,10 @@ int main(int argc, char *argv[]) {
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
       stencil(rank, partX, nx, ny, tmp_image, image);
+      // Send halo to next rank
+      MPI_Send(&image[(rank+1)*partX], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Receive Halo from previous rank
+      MPI_Recv(&image[rank*partX], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
     }
     // Sending the completed section
     MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
@@ -104,10 +104,13 @@ int main(int argc, char *argv[]) {
     for (int t = 0; t < niters; ++t) {
       stencile(rank, partX, partXe, nx, ny, image, tmp_image);
       stencile(rank, partX, partXe, nx, ny, tmp_image, image);
+      // Receive Halo from previous rank
+      MPI_Recv(&image[rank*partX], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
 
     }
     // Sending the completed section
     MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
+
 
   } else {
     printf("Error on processor %d: this rank has not been coded for\n", rank );
@@ -124,9 +127,9 @@ int main(int argc, char *argv[]) {
 
   if (rank == MASTER) {
     output_image(OUTPUT_FILE, nx, ny, image);
+    free(image);
+    free(tmp_image);
   }
-  free(image);
-  free(tmp_image);
 
   MPI_Finalize();
 
