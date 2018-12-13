@@ -1,0 +1,10 @@
+Running on host node31-035
+Time is Thu Dec 13 23:13:56 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7840049.master.cm.cluster
+This jobs runs on the following machines:
+node31-035
+Number of cores: 16
+------------------------------------
+ runtime: 0.530656 s
+------------------------------------

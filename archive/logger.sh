@@ -1,4 +1,3 @@
-#!/bin/sh
 
 cd output_1024
 source log.sh

@@ -1,4 +1,3 @@
-#!/bin/sh
 
 source logger.sh
 qsub stencil_1024.job
