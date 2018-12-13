@@ -67,49 +67,85 @@ int main(int argc, char *argv[]) {
     partXe = partX;
   }
 
+  //Creating variables for the indeces of the MPI_Comm_size
+  int tophalo = rank*partX;
+  int toprow = rank*partX + (ny+2);
+  int botrow = (rank+1)*partX;
+  int bothalo = (rank+1)*partX + 2*(ny+2);
+
   // Call the stencil kernel
   double tic = wtime();
 
   if (rank == MASTER) {
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
+      // Send botrow to next rank
+      MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Receive bothalo from next rank
+      MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
       stencil(rank, partX, nx, ny, tmp_image, image);
-      // Send halo to next rank
-      MPI_Send(&image[(rank+1)*partX], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Send botrow to next rank
+      MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Receive bothalo from next rank
+      MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
+
     }
     // Receive from all ranks
     if (size>2){
       for (int i = 1; i<size-1; ++i){
-        MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
+        // MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
       }
     }
     if (size>1){
-      MPI_Recv(&image[(size-1)*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
+      //Receive from last processor
+      // MPI_Recv(&image[(size-1)*partX+(ny+2)], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
     }
 
   } else if (rank < size-1){
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
+      // Send botrow to next rank
+      MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Receive topHalo from previous rank
+      MPI_Recv(&tmp_image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&tmp_image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
+      // Receive bothalo from next rank
+      MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
+
       stencil(rank, partX, nx, ny, tmp_image, image);
-      // Send halo to next rank
-      MPI_Send(&image[(rank+1)*partX], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
-      // Receive Halo from previous rank
-      MPI_Recv(&image[rank*partX], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send botrow to next rank
+      MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+      // Receive topHalo from previous rank
+      MPI_Recv(&image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
+      // Receive bothalo from next rank
+      MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
+
     }
     // Sending the completed section
-    MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
+    // MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
 
   } else if (rank == size-1){
 
     for (int t = 0; t < niters; ++t) {
       stencile(rank, partX, partXe, nx, ny, image, tmp_image);
+      // Receive tophalo from previous rank
+      MPI_Recv(&tmp_image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&tmp_image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
+
       stencile(rank, partX, partXe, nx, ny, tmp_image, image);
-      // Receive Halo from previous rank
-      MPI_Recv(&image[rank*partX], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Receive tophalo from previous rank
+      MPI_Recv(&image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
 
     }
     // Sending the completed section
-    MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
+    // MPI_Send(&image[toprow], partXe*(ny+2), MPI_FLOAT, MASTER, tag, MPI_COMM_WORLD);
+    // MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
 
 
   } else {
