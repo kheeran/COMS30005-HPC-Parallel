@@ -90,16 +90,6 @@ int main(int argc, char *argv[]) {
       MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
     }
-    // Receive from all ranks
-    if (size>2){
-      for (int i = 1; i<size-1; ++i){
-        // MPI_Recv(&image[i*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
-      }
-    }
-    if (size>1){
-      //Receive from last processor
-      // MPI_Recv(&image[(size-1)*partX+(ny+2)], (ny+2)*partXe, MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
-    }
 
   } else if (rank < size-1){
     for (int t = 0; t < niters; ++t) {
@@ -124,9 +114,6 @@ int main(int argc, char *argv[]) {
       MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
     }
-    // Sending the completed section
-    // MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partX, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
-
   } else if (rank == size-1){
 
     for (int t = 0; t < niters; ++t) {
@@ -143,17 +130,14 @@ int main(int argc, char *argv[]) {
       MPI_Send(&image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
 
     }
-    // Sending the completed section
-    // MPI_Send(&image[toprow], partXe*(ny+2), MPI_FLOAT, MASTER, tag, MPI_COMM_WORLD);
-    // MPI_Send(&image[rank*partX+(1*(ny+2))], (ny+2)*partXe, MPI_FLOAT, MASTER , tag, MPI_COMM_WORLD);
-
-
   } else {
     printf("Error on processor %d: this rank has not been coded for\n", rank );
     return EXIT_FAILURE;
   }
 
   double toc = wtime();
+
+  
 
   printf("Timing on rank %d:\n", rank );
   // Output
