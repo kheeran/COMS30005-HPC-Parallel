@@ -4,8 +4,6 @@
 #include <math.h>
 #include <mpi.h>
 
-#define MASTER 0
-
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 
@@ -41,6 +39,8 @@ int main(int argc, char *argv[]) {
   // Allocate the image
   float * image = malloc(sizeof(float)*(nx+2)*(ny+2));
   float * tmp_image = malloc(sizeof(float)*(nx+2)*(ny+2));
+  float * final_image = malloc(sizeof(float)*(nx+2)*(ny+2));
+
 
   // Set the input image
   init_image(nx, ny, image, tmp_image);
@@ -68,29 +68,55 @@ int main(int argc, char *argv[]) {
   }
 
   //Creating variables for the indeces of the MPI_Comm_size
-  int tophalo = rank*partX;
-  int toprow = rank*partX + (ny+2);
-  int botrow = (rank+1)*partX;
-  int bothalo = (rank+1)*partX + 2*(ny+2);
+  int tophalo = rank*partX*(ny+2);
+  int toprow = (rank*partX +1 )*(ny+2);
+  int botrow = (rank+1)*partX*(ny+2);
+  int bothalo = ((rank+1)*partX+1)*(ny+2);
 
   // Call the stencil kernel
   double tic = wtime();
 
-  if (rank == MASTER) {
+  if (rank == 0) {
     for (int t = 0; t < niters; ++t) {
-      stencil(rank, partX, nx, ny, image, tmp_image);
-      // Send botrow to next rank
-      MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
-      // Receive bothalo from next rank
-      MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
-      stencil(rank, partX, nx, ny, tmp_image, image);
-      // Send botrow to next rank
-      MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
-      // Receive bothalo from next rank
-      MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
+      if (size>1){
+        stencil(rank, partX, nx, ny, image, tmp_image);
+        // Send botrow to next rank
+        MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+        // Receive bothalo from next rank
+        MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
+
+        stencil(rank, partX, nx, ny, tmp_image, image);
+        // Send botrow to next rank
+        MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
+        // Receive bothalo from next rank
+        MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
+      } else if (size == 1){
+        stencil(rank, partX, nx, ny, image, tmp_image);
+        stencil(rank, partX, nx, ny, tmp_image, image);
+
+      } else {
+        printf("Error on processor %d: this rank has not been coded for\n", rank );
+        return EXIT_FAILURE;
+      }
     }
 
+  } else if (rank == size-1){
+
+    for (int t = 0; t < niters; ++t) {
+      stencile(rank, partX, partXe, nx, ny, image, tmp_image);
+      // Receive tophalo from previous rank
+      MPI_Recv(&tmp_image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&tmp_image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
+
+      stencile(rank, partX, partXe, nx, ny, tmp_image, image);
+      // Receive tophalo from previous rank
+      MPI_Recv(&image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
+      // Send toprow to previous rank
+      MPI_Send(&image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
+
+    }
   } else if (rank < size-1){
     for (int t = 0; t < niters; ++t) {
       stencil(rank, partX, nx, ny, image, tmp_image);
@@ -114,22 +140,6 @@ int main(int argc, char *argv[]) {
       MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
     }
-  } else if (rank == size-1){
-
-    for (int t = 0; t < niters; ++t) {
-      stencile(rank, partX, partXe, nx, ny, image, tmp_image);
-      // Receive tophalo from previous rank
-      MPI_Recv(&tmp_image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
-      // Send toprow to previous rank
-      MPI_Send(&tmp_image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
-
-      stencile(rank, partX, partXe, nx, ny, tmp_image, image);
-      // Receive tophalo from previous rank
-      MPI_Recv(&image[tophalo], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD, &status);
-      // Send toprow to previous rank
-      MPI_Send(&image[toprow], ny+2, MPI_FLOAT, rank-1, tag, MPI_COMM_WORLD);
-
-    }
   } else {
     printf("Error on processor %d: this rank has not been coded for\n", rank );
     return EXIT_FAILURE;
@@ -137,18 +147,37 @@ int main(int argc, char *argv[]) {
 
   double toc = wtime();
 
-  
+  if (rank == 0) {
+    if (size>2){
+      for (int i = 1; i<size-1; ++i){
+        MPI_Recv(&image[(i*partX + 1)*(ny+2)], partX*(ny+2), MPI_FLOAT, i, tag, MPI_COMM_WORLD, &status);
+      }
+    }
+    if (size>1){
+      MPI_Recv(&image[((size-1)*partX + 1)*(ny+2)], partXe*(ny+2), MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
+    }
 
-  printf("Timing on rank %d:\n", rank );
-  // Output
-  printf("------------------------------------\n");
-  printf(" runtime: %lf s\n", toc-tic);
-  printf("------------------------------------\n");
 
-  if (rank == MASTER) {
+    printf("Timing on rank %d:\n", rank );
+    // Output
+    printf("------------------------------------\n");
+    printf(" runtime: %lf s\n", toc-tic);
+    printf("------------------------------------\n");
+
     output_image(OUTPUT_FILE, nx, ny, image);
     free(image);
     free(tmp_image);
+  } else if (rank == size-1) {
+    MPI_Send(&image[(rank*partX +1 )*(ny+2)], partXe*(ny+2), MPI_FLOAT, 0, tag, MPI_COMM_WORLD);
+
+
+
+  } else if (rank<size-1) {
+    MPI_Send(&image[(rank*partX +1 )*(ny+2)], partX*(ny+2), MPI_FLOAT, 0, tag, MPI_COMM_WORLD);
+
+  } else {
+    printf("Error on processor %d: this rank has not been coded for\n", rank );
+    return EXIT_FAILURE;
   }
 
   MPI_Finalize();

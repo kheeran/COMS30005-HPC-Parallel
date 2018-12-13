@@ -1,26 +1,110 @@
-Running on host node31-032
-Time is Thu Dec 13 16:28:41 GMT 2018
+Running on host node31-029
+Time is Thu Dec 13 20:16:22 GMT 2018
 Directory is /panfs/panasas01/cosc/kn16063/MPI
-PBS job ID is 7836647.master.cm.cluster
+PBS job ID is 7838806.master.cm.cluster
 This jobs runs on the following machines:
-node31-032
+node31-029
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
+Size is 1
 Timing on rank 0:
 ------------------------------------
- runtime: 0.000290 s
-------------------------------------
-Timing on rank 1:
-------------------------------------
- runtime: 0.000307 s
-------------------------------------
-Timing on rank 2:
-------------------------------------
- runtime: 0.000305 s
-------------------------------------
-Timing on rank 3:
-------------------------------------
- runtime: 0.000339 s
-------------------------------------
-Timing on rank 4:
-------------------------------------
- runtime: 0.000335 s
+ runtime: 0.122750 s
 ------------------------------------

@@ -1,3 +1,3 @@
 all: stencil
 stencil: stencil.c
-	mpiicc -std=c11 -Wall -Ofast -xAVX $^ -o $@
+	mpiicc -std=c11 -Ofast -xAVX -Wall $^ -o $@
