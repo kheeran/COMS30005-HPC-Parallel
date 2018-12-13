@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#PBS -N stencil-MPI
+#PBS -N stencil-MPI_8000
 #PBS -e error/stencil.error
-#PBS -o output/stencil.out
+#PBS -o output_8000/stencil.out
 #PBS -m a
 #PBS -qteaching
-#PBS -lnodes=1:ppn=16
+#PBS -lnodes=1:ppn=1
 #PBS -lwalltime=00:01:00
 
 #! Mail to user if job aborts
@@ -15,7 +15,7 @@
 application="stencil"
 
 #! Run options for the application
-options="4096 4096 100"
+options="8000 8000 100"
 
 ###############################################################
 ### You should not have to change anything below this line ####
