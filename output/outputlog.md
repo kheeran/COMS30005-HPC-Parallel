@@ -647,3 +647,19 @@ Number of cores: 16
 
 
 ------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-034
+Time is Thu Dec 13 22:29:20 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7839791.master.cm.cluster
+This jobs runs on the following machines:
+node31-034
+Number of cores: 16
+------------------------------------
+ runtime: 0.522393 s
+------------------------------------
+
+------------------------------------------------------
