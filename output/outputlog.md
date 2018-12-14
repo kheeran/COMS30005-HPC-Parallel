@@ -663,3 +663,131 @@ Number of cores: 16
 ------------------------------------
 
 ------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-034
+Time is Fri Dec 14 00:22:42 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7840464.master.cm.cluster
+This jobs runs on the following machines:
+node31-034
+Number of cores: 5
+------------------------------------
+ runtime: 0.000323 s
+------------------------------------
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 105720 RUNNING AT node31-034
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 105720 RUNNING AT node31-034
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-034
+Time is Fri Dec 14 00:33:19 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7840612.master.cm.cluster
+This jobs runs on the following machines:
+node31-034
+Number of cores: 16
+------------------------------------
+ runtime: 0.000915 s
+------------------------------------
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 109404 RUNNING AT node31-034
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 109404 RUNNING AT node31-034
+=   EXIT CODE: 6
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-031
+Time is Fri Dec 14 10:48:38 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7846450.master.cm.cluster
+This jobs runs on the following machines:
+node31-031
+Number of cores: 2
+------------------------------------
+ runtime: 4.400993 s
+------------------------------------
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-029
+Time is Fri Dec 14 11:19:10 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7846695.master.cm.cluster
+This jobs runs on the following machines:
+node31-029
+Number of cores: 1
+------------------------------------
+ runtime: 12.963868 s
+------------------------------------
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-029
+Time is Fri Dec 14 11:19:10 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7846695.master.cm.cluster
+This jobs runs on the following machines:
+node31-029
+Number of cores: 1
+------------------------------------
+ runtime: 12.963868 s
+------------------------------------
+
+------------------------------------------------------
+#LOG
+
+
+## ICC fast
+Running on host node31-029
+Time is Fri Dec 14 11:40:51 GMT 2018
+Directory is /panfs/panasas01/cosc/kn16063/MPI
+PBS job ID is 7846884.master.cm.cluster
+This jobs runs on the following machines:
+node31-029
+Number of cores: 1
+------------------------------------
+ runtime: 8.760244 s
+------------------------------------
+
+------------------------------------------------------
