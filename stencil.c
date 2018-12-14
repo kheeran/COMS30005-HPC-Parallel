@@ -7,7 +7,7 @@
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 
-// void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
+void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
 void stencile(const int rank, const int partX, const int partXe, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
 void init_image(const int nx, const int ny, float * restrict  image, float * restrict  tmp_image);
 void output_image(const char * file_name, const int nx, const int ny, float * restrict image);
@@ -80,20 +80,20 @@ int main(int argc, char *argv[]) {
     for (int t = 0; t < niters; ++t) {
 
       if (size>1){
-        stencile(rank, partX, partXe, nx, ny, image, tmp_image);
+        stencil(rank, partX, nx, ny, image, tmp_image);
         // Send botrow to next rank
         MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
         // Receive bothalo from next rank
         MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
-        stencile(rank, partX, partXe, nx, ny, tmp_image, image);
+        stencil(rank, partX, nx, ny, tmp_image, image);
         // Send botrow to next rank
         MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
         // Receive bothalo from next rank
         MPI_Recv(&image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
       } else if (size == 1){
-        stencile(rank, partX, partXe, nx, ny, image, tmp_image);
-        stencile(rank, partX, partXe, nx, ny, tmp_image, image);
+        stencil(rank, partX, nx, ny, image, tmp_image);
+        stencil(rank, partX, nx, ny, tmp_image, image);
 
       } else {
         printf("Error on processor %d: this rank has not been coded for\n", rank );
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
     }
   } else if (rank < size-1){
     for (int t = 0; t < niters; ++t) {
-      stencile(rank, partX, partXe, nx, ny, image, tmp_image);
+      stencil(rank, partX, nx, ny, image, tmp_image);
       // Send botrow to next rank
       MPI_Send(&tmp_image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
       // Receive topHalo from previous rank
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
       // Receive bothalo from next rank
       MPI_Recv(&tmp_image[bothalo], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD, &status);
 
-      stencile(rank, partX, partXe, nx, ny, tmp_image, image);
+      stencil(rank, partX, nx, ny, tmp_image, image);
       // Send botrow to next rank
       MPI_Send(&image[botrow], ny+2, MPI_FLOAT, rank+1, tag, MPI_COMM_WORLD);
       // Receive topHalo from previous rank
@@ -184,20 +184,20 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-// void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
-//
-//   for (int i = (rank*partX) + 1; i < ((rank+1)*partX) + 1; ++i) {
-//     for (int j = 1; j < ny + 1; ++j) {
-//       tmp_image[j+i*(ny+2)] = image[j+i*(ny+2)] * 0.6f;
-//       tmp_image[j+i*(ny+2)] += image[j  +(i-1)*(ny+2)] * 0.1f;
-//       tmp_image[j+i*(ny+2)] += image[j  +(i+1)*(ny+2)] * 0.1f;
-//       tmp_image[j+i*(ny+2)] += image[j-1+i*(ny+2)] * 0.1f;
-//       tmp_image[j+i*(ny+2)] += image[j+1+i*(ny+2)] * 0.1f;
-//     }
-//   }
-// }
+void stencil(const int rank, const int partX, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
 
-// Stencil code for the multiprocessing
+  for (int i = (rank*partX) + 1; i < ((rank+1)*partX) + 1; ++i) {
+    for (int j = 1; j < ny + 1; ++j) {
+      tmp_image[j+i*(ny+2)] = image[j+i*(ny+2)] * 0.6f;
+      tmp_image[j+i*(ny+2)] += image[j  +(i-1)*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j  +(i+1)*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j-1+i*(ny+2)] * 0.1f;
+      tmp_image[j+i*(ny+2)] += image[j+1+i*(ny+2)] * 0.1f;
+    }
+  }
+}
+
+// Stencil code for the last processor
 void stencile(const int rank, const int partX, const int partXe, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
 
   for (int i = (rank*partX) + 1; i < (rank*partX + partXe) + 1; ++i) {
