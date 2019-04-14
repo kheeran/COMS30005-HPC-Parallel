@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#PBS -N stencil-MPI
+#PBS -N stencil-MPI_8000
 #PBS -e error/stencil.error
-#PBS -o output/stencil.out
+#PBS -o output_8000/stencil.out
 #PBS -m a
 #PBS -qteaching
 #PBS -lnodes=1:ppn=1
