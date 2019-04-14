@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
-  // Determining the size of each partition
+  // Determining the size of each standard partition and the end one.
   double nnx = nx;
   double ssize = size;
   partX = ceil(nnx/ssize);
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     partXe = partX;
   }
 
-  //Creating variables for the indeces of the MPI_Comm_size
+  //Creating variables for the indecies of the MPI_Comm_size
   int tophalo = rank*partX*(ny+2);
   int toprow = (rank*partX +1 )*(ny+2);
   int botrow = (rank+1)*partX*(ny+2);
@@ -157,8 +157,7 @@ int main(int argc, char *argv[]) {
       MPI_Recv(&image[((size-1)*partX + 1)*(ny+2)], partXe*(ny+2), MPI_FLOAT, size-1, tag, MPI_COMM_WORLD, &status);
     }
 
-
-    printf("Timing on rank %d:\n", rank );
+    printf("Number of cores: %d\n",size );
     // Output
     printf("------------------------------------\n");
     printf(" runtime: %lf s\n", toc-tic);
@@ -198,6 +197,7 @@ void stencil(const int rank, const int partX, const int nx, const int ny, float 
   }
 }
 
+// Stencil code for the last processor
 void stencile(const int rank, const int partX, const int partXe, const int nx, const int ny, float * restrict  image, float * restrict  tmp_image) {
 
   for (int i = (rank*partX) + 1; i < (rank*partX + partXe) + 1; ++i) {
