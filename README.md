@@ -2,11 +2,9 @@
 
 ### Assignment 2 - Parallel Optimisation :
 
-*Follows directly from the serially optimised code from the first courseword (branch cw1)*
+*Follows directly from the serially optimised code from the first courseword*
 
-1. Optimisation
-	- Optimised the for loop by removing the conditional branches (serial)
-	- Used several parallel optimisation techniques, documented in the report 
+**Optimisation details are in the file report.pdf**
 
 ----------------------------------------------------------------------------------------------------------------
 QUESTION:
