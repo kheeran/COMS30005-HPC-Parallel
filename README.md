@@ -2,7 +2,7 @@
 
 ### Assignment 2 - Parallel Optimisation :
 
-*Follows directly from the serially optimised code from the first courseword*
+*Follows directly from the serially optimised code from the first coursework*
 
 **Optimisation details are in the file report.pdf**
 
